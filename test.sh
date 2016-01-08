@@ -3,8 +3,8 @@
 # Request options for various tests (you may need to reset cookie here)
 host="https://api.runnable-gamma.com"
 route="/instances/5637da400eaf1b0c000992d8/dependencies"
-num_tests=4
-test_delay=1
+num_tests=180
+test_delay=2
 
 # Times a request to the given route
 # @param $1 url URL to time.
@@ -21,13 +21,16 @@ time_request() {
 main() {
 	local url="${host}${route}"
 	local cookie=$(cat ./auth.cookie)
+
 	echo "     Route: $url"
 	echo "Iterations: $num_tests"
 	echo "Test Delay: $test_delay"
+
 	for ((i=0; i<num_tests; i++)); do
 		time_request "$url" "$cookie"
 		sleep "$test_delay"
 	done
+
 	sleep 1
 }
 
